@@ -1,11 +1,15 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-kata-for-fun-form',
   templateUrl: './kata-for-fun-form.component.html'
 })
 export class KataForFunFormComponent implements OnInit {
+  @Output()
+  submitNumberOutput: EventEmitter<number> = new EventEmitter<number>();
+
+  inputField = new FormControl('');
 
 
   constructor() {
@@ -16,6 +20,10 @@ export class KataForFunFormComponent implements OnInit {
   }
 
   submitNumber(): void {
+    this.submitNumberOutput.emit(this.inputField.value);
   }
 
+  isInputFieldValid(): boolean {
+    return this.inputField.value === '' || this.inputField.value === null;
+  }
 }

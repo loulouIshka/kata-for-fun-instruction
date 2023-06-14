@@ -7,7 +7,7 @@ import { KataForFunService } from '../kata-for-fun.service';
   templateUrl: './kata-for-fun.component.html'
 })
 export class KataForFunComponent implements OnInit, OnDestroy {
-
+  numberConvertedList: NumberConverted[] = [];
   constructor(private kataForFunService: KataForFunService) { }
 
   ngOnInit(): void {
@@ -17,6 +17,16 @@ export class KataForFunComponent implements OnInit, OnDestroy {
   }
 
   convertNumber(inputNumber: number): void {
+    this.kataForFunService.convertNumber(inputNumber).subscribe(
+      value => {
+      const numberConverted: NumberConverted = {
+        numberToConvert: inputNumber,
+        result: value.result
+      };
+      this.numberConvertedList.push(numberConverted);
+    }, error => {
+
+      });
   }
 
 }
